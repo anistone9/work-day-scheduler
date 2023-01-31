@@ -9,9 +9,9 @@ The current day schedule displays the business hours color coded, with past hour
 
 ## Deployed application
 
+https://anistone9.github.io/work-day-scheduler/
 
-
-![image]
+![image](https://user-images.githubusercontent.com/58886869/215634523-af902d2e-bb6f-47fe-9a14-284452c18afe.png)
 
 ## Features
 
@@ -37,7 +37,7 @@ Day.js
 HTML   
 CSS   
 JaveScript   
-jQeury   
+jQuery   
 Bootstrap
 
 ## Installation
