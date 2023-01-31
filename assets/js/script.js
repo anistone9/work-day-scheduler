@@ -1,6 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 $(function () {
 
   var timeBlockEl = $('.time-block');
@@ -34,50 +31,30 @@ $(function () {
     }
   }
 
-  //First read events from local storage and return an array of event objects.
-  //If no events are stored (when the user first opens the application), then create an empty array and return it.
-  function readEventsFromStorage() {
-    var events = localStorage.getItem('events');
-    if (events) {
-      events = JSON.parse(events);
-    } else {
-      events = [];
-    }
-    return events;
-  }
-
-  //Function to grab the array of events from the previous function, and save them in local storage.
-  //Takes the array of events created via the events variable above, and saves it as a string to local memory.
-  function saveEventsToStorage(events) {
-    localStorage.setItem('events', JSON.stringify(events));
-  }
-
+  //Function to create an event when the save button is clicked to push that information to local storage
   function handleSaveEvents(event) {
-    event.preventDefault();
     console.log(event.currentTarget);
 
-    //Create variable for the parend div of button pressed
+    //Create variable for the parend div of the button pressed; 'this' represents that button in the event
     var hourIdEl = $(this).parent('.time-block');
     var saveId = hourIdEl.attr('id');
     console.log(hourIdEl);
 
-    //read the user input from textarea
+    //read the user input from textarea relative to this event (div)
     var eventEl = hourIdEl.children('.description');
     var userEvent = eventEl.val();
 
-    //save to local storage the user text for a particular hour
+    //save to local storage the user input for a particular hour. DOM traversal to get the ID and the typed text.
+    //if the event typed is deleted by the user, remove that entry from storage (remove the key)
     if (userEvent == "") {
       localStorage.removeItem(saveId);
     } else {
-      localStorage.setItem(saveId, JSON.stringify(userEvent));
+      localStorage.setItem(saveId, userEvent);
     }
   }
 
   //Grab the events from local storage and display them
   function printEvents() {
-
-    //Get events from storage
-    //var events = readEventsFromStorage();
 
     for (var i = 0; i < timeBlockEl.length; i++) {
       var readId = timeBlockEl[i].id;
@@ -89,8 +66,6 @@ $(function () {
       textAreaEl.value = storedValue;
     }
   }
-
-
 
   displayTime();
   checkHour();
